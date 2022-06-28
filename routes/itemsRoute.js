@@ -1,0 +1,45 @@
+const { json } = require("express");
+const express = require("express");
+const { get } = require("mongoose");
+const ItemModel = require("../models/itemsModel");
+// const app = express();
+const router = express.Router();
+
+router.get("/get-all-items", async (req, res) => {
+  try {
+    const items = await ItemModel.find();
+    res.send(items);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+router.post("/add-item", async (req, res) => {
+  try {
+    const newItem = new ItemModel(req.body);
+    await newItem.save();
+    res.send("Item aded successfully");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+router.post("/edit-item", async (req, res) => {
+  try {
+    await ItemModel.findOneAndUpdate({ _id: req.body.itemId }, req.body);
+    res.send("Item updated successfully");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+router.post("/delete-item", async (req, res) => {
+  try {
+    await ItemModel.findOneAndDelete({ _id: req.body.itemId });
+    res.send("Item Deleted successfully");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+module.exports = router;
