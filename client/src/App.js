@@ -1,17 +1,14 @@
 import logo from "./logo.svg";
-import "./App.css";
 import "antd/dist/antd.css";
 import { Button } from "antd";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Homepage from "./pages/Homepage";
-import Item from "antd/lib/list/Item";
-import CartPage from "./pages/CartPage";
 import Items from "./pages/Items";
+import CartPage from "./pages/CartPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Bill from "./pages/Bills";
 import Customers from "./pages/Customers";
-
+import Bills from "./pages/Bills";
 function App() {
   return (
     <div className="App">
@@ -20,41 +17,41 @@ function App() {
           <Route
             path="/home"
             element={
-              <ProtectedRoutes>
+              <ProtectedRoute>
                 <Homepage />
-              </ProtectedRoutes>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/items"
             element={
-              <ProtectedRoutes>
+              <ProtectedRoute>
                 <Items />
-              </ProtectedRoutes>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/cart"
             element={
-              <ProtectedRoutes>
+              <ProtectedRoute>
                 <CartPage />
-              </ProtectedRoutes>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/bills"
             element={
-              <ProtectedRoutes>
-                <Bill />
-              </ProtectedRoutes>
+              <ProtectedRoute>
+                <Bills />
+              </ProtectedRoute>
             }
           />
           <Route
             path="/customers"
             element={
-              <ProtectedRoutes>
+              <ProtectedRoute>
                 <Customers />
-              </ProtectedRoutes>
+              </ProtectedRoute>
             }
           />
           <Route path="/register" element={<Register />} />
@@ -68,10 +65,10 @@ function App() {
 
 export default App;
 
-export function ProtectedRoutes({ children }) {
+export function ProtectedRoute({ children }) {
   if (localStorage.getItem("pos-user")) {
     return children;
   } else {
-    return <Navigate to="/login"></Navigate>;
+    return <Navigate to="/login" />;
   }
 }
