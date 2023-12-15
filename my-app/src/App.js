@@ -1,6 +1,5 @@
-import logo from "./logo.svg";
-import "antd/dist/antd.css";
-import { Button } from "antd";
+import logo from './logo.svg';
+import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Items from "./pages/Items";
@@ -9,10 +8,25 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Customers from "./pages/Customers";
 import Bills from "./pages/Bills";
+
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      {/* <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          
+        </a>
+      </header> */}
+         <BrowserRouter>
         <Routes>
           <Route
             path="/home"
@@ -63,8 +77,6 @@ function App() {
   );
 }
 
-export default App;
-
 export function ProtectedRoute({ children }) {
   if (localStorage.getItem("pos-user")) {
     return children;
@@ -72,3 +84,6 @@ export function ProtectedRoute({ children }) {
     return <Navigate to="/login" />;
   }
 }
+
+export default App;
+

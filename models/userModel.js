@@ -5,11 +5,11 @@ const userSchema = mongoose.Schema(
     name: { type: String, required: true },
     userId: { type: String, required: true },
     password: { type: String, required: true },
-    verified: { type: Boolean, required: true },
+    verified: { type: Boolean, require: true },
   },
   { timestamps: true }
 );
 
-const itemsModel = mongoose.model("users", userSchema);
+const userModel = mongoose.model("users", userSchema);
 
-module.exports = itemsModel;
+module.exports = userModel;

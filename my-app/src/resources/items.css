@@ -65,6 +65,8 @@ input:focus {
   padding: 15px;
 }
 
+/* ================================================Bill styling */
+
 .bill-header {
   border-bottom: 2px dotted rgb(77, 76, 76);
 }
@@ -79,7 +81,6 @@ input:focus {
   margin: 5px 0;
   border-bottom: 2px dotted rgb(77, 76, 76);
 }
-
 .bill-model h2 {
   margin-bottom: 0 !important;
 }

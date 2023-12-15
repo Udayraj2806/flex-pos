@@ -1,31 +1,32 @@
 import React, { useEffect } from "react";
-import { Button, Select, Table, Input, Form, message, Row, Col } from "antd";
+import { Button, Col, Form, Input, message, Row } from "antd";
 import "../resources/authentication.css";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
-const Login = () => {
+function Login() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const naviate = useNavigate();
   const onFinish = (values) => {
     dispatch({ type: "showLoading" });
     axios
-      .post("/api/user/login", values)
+      .post("/api/users/login", values)
       .then((res) => {
         dispatch({ type: "hideLoading" });
         message.success("Login successfull");
         localStorage.setItem("pos-user", JSON.stringify(res.data));
-        navigate("/home");
+        naviate("/home");
       })
       .catch(() => {
         dispatch({ type: "hideLoading" });
-        message.error("Smoething went Wrong");
+        message.error("Something went wrong");
       });
   };
+
   useEffect(() => {
-    if (localStorage.getItem("pos-user")) navigate("/home");
+    if (localStorage.getItem("pos-user")) naviate("/home");
   }, []);
+
   return (
     <div className="authentication">
       <Row>
@@ -37,15 +38,16 @@ const Login = () => {
             <hr />
             <h3>Login</h3>
 
-            <Form.Item name="userId" label="User Id">
+            <Form.Item name="userId" label="User ID">
               <Input />
             </Form.Item>
             <Form.Item name="password" label="Password">
               <Input type="password" />
             </Form.Item>
+
             <div className="d-flex justify-content-between align-items-center">
               <Link to="/register">
-                Not Register ? click here to registered
+                Not Yet Registered ? Click Here To Register
               </Link>
               <Button htmlType="submit" type="primary">
                 Login
@@ -56,6 +58,6 @@ const Login = () => {
       </Row>
     </div>
   );
-};
+}
 
 export default Login;

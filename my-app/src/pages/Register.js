@@ -1,33 +1,31 @@
 import React, { useEffect } from "react";
-import { Button, Select, Table, Input, Form, message, Row, Col } from "antd";
+import { Button, Col, Form, Input, message, Row } from "antd";
 import "../resources/authentication.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
-const Register = () => {
+function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onFinish = (values) => {
+    console.log(values)
     dispatch({ type: "showLoading" });
     axios
-      .post("/api/user/register", values)
+      .post("/api/users/register", values)
       .then((res) => {
         dispatch({ type: "hideLoading" });
         message.success(
-          "Registration successfull ,Please wait for verification"
+          "Registration successfull , please wait for verification"
         );
       })
       .catch(() => {
         dispatch({ type: "hideLoading" });
-        message.error("Smoething went Wrong");
+        message.error("Something went wrong");
       });
   };
-
   useEffect(() => {
     if (localStorage.getItem("pos-user")) navigate("/home");
   }, []);
-
   return (
     <div className="authentication">
       <Row>
@@ -41,14 +39,15 @@ const Register = () => {
             <Form.Item name="name" label="Name">
               <Input />
             </Form.Item>
-            <Form.Item name="userId" label="User Id">
+            <Form.Item name="userId" label="User ID">
               <Input />
             </Form.Item>
             <Form.Item name="password" label="Password">
               <Input type="password" />
             </Form.Item>
+
             <div className="d-flex justify-content-between align-items-center">
-              <Link to="/login">Already Register ? click here to login</Link>
+              <Link to="/login">Already Registed ? Click Here To Login</Link>
               <Button htmlType="submit" type="primary">
                 Register
               </Button>
@@ -58,6 +57,6 @@ const Register = () => {
       </Row>
     </div>
   );
-};
+}
 
 export default Register;

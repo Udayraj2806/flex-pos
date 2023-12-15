@@ -25,7 +25,6 @@
 .ant-layout-has-sider {
   padding: 15px !important;
 }
-
 .ant-layout-sider {
   border-radius: 10px !important;
 }
@@ -60,11 +59,9 @@
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-
 .cart-count {
   cursor: pointer;
 }
-
 .spinner {
   z-index: 10;
   position: absolute;
@@ -76,20 +73,19 @@
   height: 100px;
   width: 100px;
 }
-
 .ant-layout-content {
   height: 80vh;
   overflow-y: scroll;
 }
 
-.buttons {
+button {
   background-color: rgb(15, 155, 15) !important;
   color: white !important;
-  border: none;
+  border: none !important;
   box-shadow: none;
   outline: none;
 }
-.ant modal-close-x {
-  border-color: white !important;
+.ant-modal-close-x {
+  background-color: white !important;
   color: black !important;
 }

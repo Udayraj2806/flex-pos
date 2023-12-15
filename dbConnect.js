@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
-const URL = "mongodb+srv://Uday:urraj@cluster0.hqxku.mongodb.net/flexpos";
+const URL = process.env.MONGODB_API;
 
 mongoose.connect(URL);
 
-let connectionobj = mongoose.connection;
+let connectionObj = mongoose.connection;
 
-connectionobj.on("connected", () => {
-  console.log("Connected  Successfully to database..!");
+connectionObj.on("connected", () => {
+  console.log("Mongo DB Connection Successfull");
 });
 
-connectionobj.on("error", () => {
-  console.log("Connection to database failed");
+connectionObj.on("error", () => {
+  console.log("Mongo DB Connection Failed");
 });

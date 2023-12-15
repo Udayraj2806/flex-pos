@@ -1,27 +1,32 @@
+import React, { useEffect, useState } from "react";
+import { Layout, Menu } from "antd";
 import {
-  MenuFoldOutlined,
   MenuUnfoldOutlined,
+  MenuFoldOutlined,
   UserOutlined,
   HomeOutlined,
   CopyOutlined,
   UnorderedListOutlined,
-  LogoutOutlined,
+  LoginOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
-import React, { useEffect, useState } from "react";
 import "../resources/layout.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 const { Header, Sider, Content } = Layout;
 
-const DefaultLayout = ({ children }) => {
-  const navigate = useNavigate();
+const DefaultLayout = (props) => {
   const [collapsed, setCollapsed] = useState(false);
-  const { cartItems, loading } = useSelector((state) => state.rootReducer);
+  const { cartItems, loading } = useSelector((state) => state);
+  const navigate = useNavigate();
+  const toggle = () => {
+    setCollapsed(!collapsed);
+  };
+
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
+
   return (
     <Layout>
       {loading && (
@@ -31,10 +36,8 @@ const DefaultLayout = ({ children }) => {
       )}
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
-          <h3 className="logo">{collapsed ? "FP" : "Flex-Pos"}</h3>
+          <h3>{collapsed ? "FP" : "FLEX POS"}</h3>
         </div>
-        {/* <div className="logo" /> */}
-
         <Menu
           theme="dark"
           mode="inline"
@@ -56,8 +59,8 @@ const DefaultLayout = ({ children }) => {
             <Link to="/customers">Customers</Link>
           </Menu.Item>
           <Menu.Item
-            key="5"
-            icon={<LogoutOutlined />}
+            key="/logout"
+            icon={<LoginOutlined />}
             onClick={() => {
               localStorage.removeItem("pos-user");
               navigate("/login");
@@ -68,25 +71,22 @@ const DefaultLayout = ({ children }) => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Header
-          className="site-layout-background"
-          style={{
-            padding: 10,
-          }}
-        >
+        <Header className="site-layout-background" style={{ padding: 10 }}>
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
               className: "trigger",
-              onClick: () => setCollapsed(!collapsed),
+              onClick: toggle,
             }
           )}
           <div
             className="cart-count d-flex align-items-center"
+            style={{lineHeight:'0px'}}
             onClick={() => navigate("/cart")}
           >
             <b>
-              <p className="mt-3 mr-2">{cartItems.length}</p>
+              {" "}
+              <p className="mt-3 mr-2">{cartItems&&cartItems.length}</p>
             </b>
             <ShoppingCartOutlined />
           </div>
@@ -99,7 +99,7 @@ const DefaultLayout = ({ children }) => {
             minHeight: "80vh",
           }}
         >
-          {children}
+          {props.children}
         </Content>
       </Layout>
     </Layout>
